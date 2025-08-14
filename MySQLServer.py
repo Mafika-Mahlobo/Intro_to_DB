@@ -20,13 +20,17 @@ cursor = connection.cursor()
 query = "CREATE DATABASE IF NOT EXISTS alx_book_store"
 
 try:
-    
     cursor.execute(query)
+
+except mysql.connector.Error as e:
+    print(e)
+
+else:
     if cursor.warning_count < 1:
         print("Database successfully created!")
     else:
         print("The database already exists")
 
-
-except mysql.connector.errors.DatabaseError as e:
-    print(e)
+finally:
+    cursor.close()
+    connection.close()
